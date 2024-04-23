@@ -1,4 +1,4 @@
-package dat3.security.entity;
+package minkavlerne.cafekeabackend.security.entity;
 
 
 import jakarta.persistence.*;

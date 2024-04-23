@@ -1,6 +1,6 @@
-package dat3.security.for_security_tests;
+package minkavlerne.cafekeabackend.security.for_security_tests;
 
-import dat3.security.service.UserWithRolesService;
+import minkavlerne.cafekeabackend.security.service.UserWithRolesService;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.context.annotation.Profile;

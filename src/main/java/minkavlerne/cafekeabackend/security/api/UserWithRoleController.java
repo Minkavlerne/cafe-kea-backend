@@ -1,9 +1,9 @@
-package dat3.security.api;
+package minkavlerne.cafekeabackend.security.api;
 
-import dat3.security.dto.UserWithRolesRequest;
-import dat3.security.dto.UserWithRolesResponse;
-import dat3.security.entity.Role;
-import dat3.security.service.UserWithRolesService;
+import minkavlerne.cafekeabackend.security.dto.UserWithRolesRequest;
+import minkavlerne.cafekeabackend.security.dto.UserWithRolesResponse;
+import minkavlerne.cafekeabackend.security.entity.Role;
+import minkavlerne.cafekeabackend.security.service.UserWithRolesService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 

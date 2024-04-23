@@ -1,9 +1,9 @@
-package dat3.security.api;
+package minkavlerne.cafekeabackend.security.api;
 
-import dat3.security.service.UserDetailsServiceImp;
-import dat3.security.dto.LoginRequest;
-import dat3.security.dto.LoginResponse;
-import dat3.security.entity.UserWithRoles;
+import minkavlerne.cafekeabackend.security.service.UserDetailsServiceImp;
+import minkavlerne.cafekeabackend.security.dto.LoginRequest;
+import minkavlerne.cafekeabackend.security.dto.LoginResponse;
+import minkavlerne.cafekeabackend.security.entity.UserWithRoles;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

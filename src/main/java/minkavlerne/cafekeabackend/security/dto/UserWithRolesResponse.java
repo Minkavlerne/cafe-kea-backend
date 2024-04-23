@@ -1,9 +1,9 @@
-package dat3.security.dto;
+package minkavlerne.cafekeabackend.security.dto;
 
 
 import lombok.Getter;
 import lombok.Setter;
-import dat3.security.entity.UserWithRoles;
+import minkavlerne.cafekeabackend.security.entity.UserWithRoles;
 
 import java.util.List;
 import java.util.stream.Collectors;

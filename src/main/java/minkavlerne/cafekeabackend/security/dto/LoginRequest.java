@@ -1,4 +1,4 @@
-package dat3.security.dto;
+package minkavlerne.cafekeabackend.security.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

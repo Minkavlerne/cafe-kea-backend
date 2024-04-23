@@ -1,6 +1,6 @@
-package dat3.security.repository;
+package minkavlerne.cafekeabackend.security.repository;
 
-import dat3.security.entity.UserWithRoles;
+import minkavlerne.cafekeabackend.security.entity.UserWithRoles;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface

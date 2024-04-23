@@ -1,10 +1,10 @@
-package dat3.security.service;
+package minkavlerne.cafekeabackend.security.service;
 
-import dat3.security.dto.UserWithRolesRequest;
-import dat3.security.dto.UserWithRolesResponse;
-import dat3.security.entity.Role;
-import dat3.security.entity.UserWithRoles;
-import dat3.security.repository.UserWithRolesRepository;
+import minkavlerne.cafekeabackend.security.dto.UserWithRolesRequest;
+import minkavlerne.cafekeabackend.security.dto.UserWithRolesResponse;
+import minkavlerne.cafekeabackend.security.entity.Role;
+import minkavlerne.cafekeabackend.security.entity.UserWithRoles;
+import minkavlerne.cafekeabackend.security.repository.UserWithRolesRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
