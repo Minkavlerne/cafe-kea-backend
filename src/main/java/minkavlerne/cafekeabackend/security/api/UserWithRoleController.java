@@ -29,13 +29,13 @@ public class UserWithRoleController {
   //Take care with this. This should NOT be something everyone can call
   @PreAuthorize("hasAuthority('ADMIN')")
   @PatchMapping("/add-role/{username}/{role}")
-  public UserWithRolesResponse addRole(@PathVariable String username, @PathVariable String role) {
-    return userWithRolesService.addRole(username, Role.fromString(role));
+  public UserWithRolesResponse addRole(@PathVariable int id, @PathVariable String role) {
+    return userWithRolesService.addRole(id, Role.fromString(role));
   }
   //Take care with this. This should NOT be something everyone can call
   @PreAuthorize("hasAuthority('ADMIN')")
   @PatchMapping("/remove-role/{username}/{role}")
-  public UserWithRolesResponse removeRole(@PathVariable String username, @PathVariable String role) {
-    return userWithRolesService.removeRole(username, Role.fromString(role));
+  public UserWithRolesResponse removeRole(@PathVariable int id, @PathVariable String role) {
+    return userWithRolesService.removeRole(id, Role.fromString(role));
   }
 }

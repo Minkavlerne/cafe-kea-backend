@@ -40,8 +40,8 @@ public class UserWithRoles implements UserDetails {
   private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
   @Id
-  @Column(nullable = false,length = 50,unique = true)
-  String username;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+  int id;
 
   @Column(nullable = false,length = 50,unique = true)
   String email;
@@ -67,8 +67,8 @@ public class UserWithRoles implements UserDetails {
   public UserWithRoles() {}
 
 
-  public UserWithRoles(String user, String password, String email){
-    this.username = user;
+  public UserWithRoles(int id, String password, String email){
+    this.id = id;
     setPassword(password);
     this.email = email;
   }
@@ -104,4 +104,9 @@ public class UserWithRoles implements UserDetails {
 
   @Override
   public boolean isCredentialsNonExpired() { return enabled; }
+
+  @Override
+  public String getUsername() {
+    return email;
+  }
 }
