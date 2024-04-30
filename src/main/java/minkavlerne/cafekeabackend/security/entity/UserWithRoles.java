@@ -40,7 +40,7 @@ public class UserWithRoles implements UserDetails {
   private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
   @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   int id;
 
   @Column(nullable = false,length = 50,unique = true)
