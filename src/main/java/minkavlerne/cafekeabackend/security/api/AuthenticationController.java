@@ -46,7 +46,7 @@ public class AuthenticationController {
   public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
 
     try {
-      UsernamePasswordAuthenticationToken uat = new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword());
+      UsernamePasswordAuthenticationToken uat = new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword());
       Authentication authentication = authenticationManager.authenticate(uat);
 
       UserWithRoles user = (UserWithRoles) authentication.getPrincipal();
