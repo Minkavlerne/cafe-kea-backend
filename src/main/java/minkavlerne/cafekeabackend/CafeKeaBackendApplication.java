@@ -20,10 +20,16 @@ public class CafeKeaBackendApplication {
     public CommandLineRunner importData(CoffeeRepository coffeeRepository) {
         return args -> {
             coffeeRepository.saveAll(List.of(
-                    new Coffee("Latte", 30),
-                    new Coffee("Cappuccino", 35),
-                    new Coffee("Espresso", 25),
-                    new Coffee("Americano", 20)
+                    new Coffee("Small Filter", 15),
+                    new Coffee("Large Filter", 20),
+                    new Coffee("Small Latte", 25),
+                    new Coffee("Large Latte", 30),
+                    new Coffee("Small Cappuccino", 25),
+                    new Coffee("Large Cappuccino", 30),
+                    new Coffee("Espresso", 20),
+                    new Coffee("Americano", 20),
+                    new Coffee("Small Tea", 10),
+                    new Coffee("Large Tea", 15)
             ));
         };
     }
