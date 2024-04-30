@@ -38,4 +38,8 @@ public class UserWithRoleController {
   public UserWithRolesResponse removeRole(@PathVariable int id, @PathVariable String role) {
     return userWithRolesService.removeRole(id, Role.fromString(role));
   }
+  @GetMapping("/{email}")
+  public UserWithRolesResponse getUserWithRolesByEmail(@PathVariable String email){
+    return userWithRolesService.getUserWithRolesByEmail(email);
+  }
 }
