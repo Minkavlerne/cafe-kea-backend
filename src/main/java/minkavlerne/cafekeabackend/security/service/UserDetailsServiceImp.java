@@ -23,8 +23,8 @@ public class UserDetailsServiceImp implements UserDetailsService {
   }
 
   @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    final Optional<UserWithRoles> optionalUser = userWithRolesRepository.findById(username);
+  public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    final Optional<UserWithRoles> optionalUser = userWithRolesRepository.findByEmail(email);
     return optionalUser.orElseThrow(()->new ResponseStatusException(HttpStatus.UNAUTHORIZED,WRONG_USERNAME_OR_PASSWORD));
   }
 }

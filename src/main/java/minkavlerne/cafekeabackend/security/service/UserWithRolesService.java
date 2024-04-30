@@ -18,29 +18,29 @@ public class UserWithRolesService {
     this.userWithRolesRepository = userWithRolesRepository;
   }
 
-  public UserWithRolesResponse getUserWithRoles(String id){
+  public UserWithRolesResponse getUserWithRoles(int id){
     UserWithRoles user = userWithRolesRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
     return new UserWithRolesResponse(user);
   }
 
   //Make sure that this can ONLY be called by an admin
-  public UserWithRolesResponse addRole(String username , Role role){
-    UserWithRoles user = userWithRolesRepository.findById(username).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
+  public UserWithRolesResponse addRole(int id , Role role){
+    UserWithRoles user = userWithRolesRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
     user.addRole(role);
     return new UserWithRolesResponse(userWithRolesRepository.save(user));
   }
 
   //Make sure that this can ONLY be called by an admin
-  public UserWithRolesResponse removeRole(String username , Role role){
+  public UserWithRolesResponse removeRole(int id , Role role){
 
-    UserWithRoles user = userWithRolesRepository.findById(username).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
+    UserWithRoles user = userWithRolesRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
     user.removeRole(role);
     return new UserWithRolesResponse(userWithRolesRepository.save(user));
   }
 
   //Only way to change roles is via the addRole method
-  public UserWithRolesResponse editUserWithRoles(String username , UserWithRolesRequest body){
-    UserWithRoles user = userWithRolesRepository.findById(username).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
+  public UserWithRolesResponse editUserWithRoles(int id , UserWithRolesRequest body){
+    UserWithRoles user = userWithRolesRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
     user.setEmail(body.getEmail());
     user.setPassword(body.getPassword());
     return new UserWithRolesResponse(userWithRolesRepository.save(user));
@@ -53,14 +53,14 @@ public class UserWithRolesService {
    * @return the user added
    */
   public UserWithRolesResponse addUserWithRoles(UserWithRolesRequest body, Role role){
-    if(userWithRolesRepository.existsById(body.getUsername())){
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"This user name is taken");
+    if(userWithRolesRepository.existsById(body.getId())){
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"This email is used by another user");
     }
     if(userWithRolesRepository.existsByEmail(body.getEmail())){
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"This email is used by another user");
     }
     String pw = body.getPassword();
-    UserWithRoles userWithRoles = new UserWithRoles(body.getUsername(), pw, body.getEmail());
+    UserWithRoles userWithRoles = new UserWithRoles(body.getId(), pw, body.getEmail());
     if(role !=null  ) {
       userWithRoles.addRole(role);
     }

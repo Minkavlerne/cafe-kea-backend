@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 public class UserWithRolesRequest {
     @NonNull
-    String username;
+    int id;
     @NonNull
     String password;
     @NonNull
