@@ -23,6 +23,11 @@ public class UserWithRolesService {
     return new UserWithRolesResponse(user);
   }
 
+  public UserWithRolesResponse getUserWithRolesByEmail(String email){
+    UserWithRoles user = userWithRolesRepository.findByEmail(email).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
+    return new UserWithRolesResponse(user);
+  }
+
   //Make sure that this can ONLY be called by an admin
   public UserWithRolesResponse addRole(int id , Role role){
     UserWithRoles user = userWithRolesRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
