@@ -60,7 +60,7 @@ public class AuthenticationController {
               .issuer(tokenIssuer)  //Only this for simplicity
               .issuedAt(now)
               .expiresAt(now.plusSeconds(tokenExpiration))
-              .subject(user.getUsername())
+              .subject(user.getEmail())
               .claim("roles", scope)
               .build();
       JwsHeader jwsHeader = JwsHeader.with(() -> "HS256").build();
@@ -69,7 +69,7 @@ public class AuthenticationController {
 
       List<String> roles = user.getRoles().stream().map(role -> role.toString()).collect(Collectors.toList());
       return ResponseEntity.ok()
-              .body(new LoginResponse(user.getUsername(), token, roles));
+              .body(new LoginResponse(user.getEmail(), token, roles));
 
     } catch (BadCredentialsException e) {
       throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, UserDetailsServiceImp.WRONG_USERNAME_OR_PASSWORD);
