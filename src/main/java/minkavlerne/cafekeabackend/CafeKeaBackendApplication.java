@@ -20,7 +20,7 @@ public class CafeKeaBackendApplication {
         SpringApplication.run(CafeKeaBackendApplication.class, args);
     }
 
-    @Bean
+    /*@Bean
     public CommandLineRunner importData(CoffeeRepository coffeeRepository, UserWithRolesRepository userWithRolesRepository, PasswordEncoder pwEncoder) {
         return args -> {
             coffeeRepository.saveAll(List.of(
@@ -44,5 +44,5 @@ public class CafeKeaBackendApplication {
             userWithRolesRepository.save(user1);
 
         };
-    }
+    }*/
 }
