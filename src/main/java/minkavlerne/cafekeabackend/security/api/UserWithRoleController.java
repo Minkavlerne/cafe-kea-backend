@@ -42,4 +42,8 @@ public class UserWithRoleController {
   public UserWithRolesResponse getUserWithRolesByEmail(@PathVariable String email){
     return userWithRolesService.getUserWithRolesByEmail(email);
   }
+  @DeleteMapping("/{email}")
+    public UserWithRolesResponse deleteUserWithRolesByEmail(@PathVariable String email){
+        return userWithRolesService.deleteUserWithRolesByEmail(email);
+    }
 }

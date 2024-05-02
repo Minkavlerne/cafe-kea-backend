@@ -71,5 +71,9 @@ public class UserWithRolesService {
     }
     return new UserWithRolesResponse(userWithRolesRepository.save(userWithRoles));
   }
-
+public UserWithRolesResponse deleteUserWithRolesByEmail(String email){
+    UserWithRoles user = userWithRolesRepository.findByEmail(email).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
+    userWithRolesRepository.delete(user);
+    return new UserWithRolesResponse(user);
+}
 }
