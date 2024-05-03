@@ -1,5 +1,6 @@
 package minkavlerne.cafekeabackend.security.api;
 
+import minkavlerne.cafekeabackend.security.dto.UserWithRolesPasswordRequest;
 import minkavlerne.cafekeabackend.security.dto.UserWithRolesRequest;
 import minkavlerne.cafekeabackend.security.dto.UserWithRolesResponse;
 import minkavlerne.cafekeabackend.security.entity.Role;
@@ -46,4 +47,8 @@ public class UserWithRoleController {
     public UserWithRolesResponse deleteUserWithRolesByEmail(@PathVariable String email){
         return userWithRolesService.deleteUserWithRolesByEmail(email);
     }
+  @PutMapping("/{email}")
+  public UserWithRolesResponse editUserWithRolesByEmail(@PathVariable String email, @RequestBody UserWithRolesPasswordRequest request){
+    return userWithRolesService.editUserWithRolesByEmail(email, request);
+  }
 }

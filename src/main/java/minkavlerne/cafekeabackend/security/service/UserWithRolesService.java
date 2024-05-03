@@ -1,5 +1,6 @@
 package minkavlerne.cafekeabackend.security.service;
 
+import minkavlerne.cafekeabackend.security.dto.UserWithRolesPasswordRequest;
 import minkavlerne.cafekeabackend.security.dto.UserWithRolesRequest;
 import minkavlerne.cafekeabackend.security.dto.UserWithRolesResponse;
 import minkavlerne.cafekeabackend.security.entity.Role;
@@ -75,5 +76,10 @@ public UserWithRolesResponse deleteUserWithRolesByEmail(String email){
     UserWithRoles user = userWithRolesRepository.findByEmail(email).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
     userWithRolesRepository.delete(user);
     return new UserWithRolesResponse(user);
+}
+public UserWithRolesResponse editUserWithRolesByEmail(String email, UserWithRolesPasswordRequest request){
+    UserWithRoles user = userWithRolesRepository.findByEmail(email).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
+    user.setPassword(request.getPassword());
+    return new UserWithRolesResponse(userWithRolesRepository.save(user));
 }
 }
