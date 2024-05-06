@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import minkavlerne.cafekeabackend.cafe.entity.Coffee;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -109,4 +110,12 @@ public class UserWithRoles implements UserDetails {
   public String getUsername() {
     return email;
   }
+
+  @ManyToMany
+  @JoinTable(
+          name = "customer_coffee",
+          joinColumns = @JoinColumn(name = "customer_id"),
+          inverseJoinColumns = @JoinColumn(name = "coffee_id")
+  )
+    private List<Coffee> coffees = new ArrayList<>();
 }

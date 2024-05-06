@@ -1,5 +1,7 @@
 package minkavlerne.cafekeabackend.security.service;
 
+import minkavlerne.cafekeabackend.cafe.entity.Coffee;
+import minkavlerne.cafekeabackend.cafe.repository.CoffeeRepository;
 import minkavlerne.cafekeabackend.security.dto.UserWithRolesPasswordRequest;
 import minkavlerne.cafekeabackend.security.dto.UserWithRolesRequest;
 import minkavlerne.cafekeabackend.security.dto.UserWithRolesResponse;
@@ -10,13 +12,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class UserWithRolesService {
 
   private  final UserWithRolesRepository userWithRolesRepository;
 
-  public UserWithRolesService(UserWithRolesRepository userWithRolesRepository) {
+  private  final CoffeeRepository coffeeRepository;
+
+  public UserWithRolesService(UserWithRolesRepository userWithRolesRepository, CoffeeRepository coffeeRepository) {
     this.userWithRolesRepository = userWithRolesRepository;
+    this.coffeeRepository = coffeeRepository;
   }
 
   public UserWithRolesResponse getUserWithRoles(int id){
@@ -82,4 +90,16 @@ public UserWithRolesResponse editUserWithRolesByEmail(String email, UserWithRole
     user.setPassword(request.getPassword());
     return new UserWithRolesResponse(userWithRolesRepository.save(user));
 }
+
+public UserWithRolesResponse addCoffeeToUser(String email, int coffeeId){
+    UserWithRoles user = userWithRolesRepository.findByEmail(email).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
+    Coffee coffee = coffeeRepository.findById(coffeeId).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Coffee not found"));
+    List<Coffee> coffees = new ArrayList<>();
+    coffees.add(coffee);
+    user.setCoffees(coffees);
+    return new UserWithRolesResponse(userWithRolesRepository.save(user));
+}
+
+
+
 }
