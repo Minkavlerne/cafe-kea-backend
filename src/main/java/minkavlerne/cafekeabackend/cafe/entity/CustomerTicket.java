@@ -29,4 +29,8 @@ public class CustomerTicket {
     @JsonBackReference
     private Ticket ticket;
 
+    public CustomerTicket(UserWithRoles customer, Ticket ticket) {
+        this.customer = customer;
+        this.ticket = ticket;
+    }
 }

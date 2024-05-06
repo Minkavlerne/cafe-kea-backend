@@ -1,10 +1,9 @@
 package minkavlerne.cafekeabackend.cafe.api;
 
+import minkavlerne.cafekeabackend.cafe.dto.TicketDto;
 import minkavlerne.cafekeabackend.cafe.entity.Ticket;
 import minkavlerne.cafekeabackend.cafe.services.TicketService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,5 +18,9 @@ public class TicketController {
     @GetMapping
     public List<Ticket> getTickets(){
         return ticketService.getTickets();
+    }
+    @PostMapping
+    public TicketDto addTicket(@RequestBody TicketDto ticket){
+        return ticketService.addTicket(ticket);
     }
 }

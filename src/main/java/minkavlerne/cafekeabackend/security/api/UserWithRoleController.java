@@ -51,4 +51,8 @@ public class UserWithRoleController {
   public UserWithRolesResponse editUserWithRolesByEmail(@PathVariable String email, @RequestBody UserWithRolesPasswordRequest request){
     return userWithRolesService.editUserWithRolesByEmail(email, request);
   }
+  @PutMapping("/{email}/ticket")
+  public UserWithRolesResponse addTicketToUser(@PathVariable String email, @RequestBody int ticketId){
+    return userWithRolesService.addTicketToUser(email, ticketId);
+  }
 }

@@ -1,5 +1,9 @@
 package minkavlerne.cafekeabackend.security.service;
 
+import minkavlerne.cafekeabackend.cafe.entity.CustomerTicket;
+import minkavlerne.cafekeabackend.cafe.entity.Ticket;
+import minkavlerne.cafekeabackend.cafe.repository.CustomerTicketRepository;
+import minkavlerne.cafekeabackend.cafe.repository.TicketRepository;
 import minkavlerne.cafekeabackend.security.dto.UserWithRolesPasswordRequest;
 import minkavlerne.cafekeabackend.security.dto.UserWithRolesRequest;
 import minkavlerne.cafekeabackend.security.dto.UserWithRolesResponse;
@@ -10,13 +14,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class UserWithRolesService {
 
   private  final UserWithRolesRepository userWithRolesRepository;
+  private final TicketRepository ticketRepository;
+  private final CustomerTicketRepository customerTicketRepository;
 
-  public UserWithRolesService(UserWithRolesRepository userWithRolesRepository) {
+  public UserWithRolesService(UserWithRolesRepository userWithRolesRepository, TicketRepository ticketRepository, CustomerTicketRepository customerTicketRepository) {
     this.userWithRolesRepository = userWithRolesRepository;
+    this.ticketRepository = ticketRepository;
+    this.customerTicketRepository = customerTicketRepository;
   }
 
   public UserWithRolesResponse getUserWithRoles(int id){
@@ -82,4 +93,15 @@ public UserWithRolesResponse editUserWithRolesByEmail(String email, UserWithRole
     user.setPassword(request.getPassword());
     return new UserWithRolesResponse(userWithRolesRepository.save(user));
 }
+
+public UserWithRolesResponse addTicketToUser(String email, int ticketId) {
+    UserWithRoles user = userWithRolesRepository.findByEmail(email).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
+    Ticket newTicket = ticketRepository.findById(ticketId).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Ticket not found"));
+    CustomerTicket newCustomerTicket = new CustomerTicket(user, newTicket);
+    customerTicketRepository.save(newCustomerTicket);
+    List<CustomerTicket> oldCustomerTickets = user.getCustomerTickets();
+    oldCustomerTickets.add(newCustomerTicket);
+    user.setCustomerTickets(oldCustomerTickets);
+    return new UserWithRolesResponse(userWithRolesRepository.save(user));
+    }
 }

@@ -1,5 +1,6 @@
 package minkavlerne.cafekeabackend.cafe.services;
 
+import minkavlerne.cafekeabackend.cafe.dto.TicketDto;
 import minkavlerne.cafekeabackend.cafe.entity.Ticket;
 import minkavlerne.cafekeabackend.cafe.repository.TicketRepository;
 import org.springframework.stereotype.Service;
@@ -15,5 +16,12 @@ public class TicketService {
     }
     public List<Ticket> getTickets(){
         return ticketRepository.findAll();
+    }
+    public TicketDto addTicket(TicketDto ticket){
+        Ticket newTicket = new Ticket();
+        newTicket.setName(ticket.getName());
+        newTicket.setPrice(ticket.getPrice());
+        ticketRepository.save(newTicket);
+        return new TicketDto(newTicket);
     }
 }
