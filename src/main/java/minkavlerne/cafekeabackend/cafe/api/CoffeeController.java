@@ -2,10 +2,9 @@ package minkavlerne.cafekeabackend.cafe.api;
 
 import minkavlerne.cafekeabackend.cafe.dto.CoffeeDto;
 import minkavlerne.cafekeabackend.cafe.services.CoffeeService;
+import minkavlerne.cafekeabackend.security.entity.UserWithRoles;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,4 +21,12 @@ public class CoffeeController {
    public ResponseEntity<List<CoffeeDto>> getAllCoffees() {
        return ResponseEntity.ok(coffeeService.getAllCoffees());
    }
+   @GetMapping("/{id}")
+    public ResponseEntity<CoffeeDto> getCoffeeById(@PathVariable int id) {
+         return ResponseEntity.ok(coffeeService.getCoffeeById(id));
+    }
+
+
+
+
 }

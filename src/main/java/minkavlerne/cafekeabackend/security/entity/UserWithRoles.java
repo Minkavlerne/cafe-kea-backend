@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import minkavlerne.cafekeabackend.cafe.entity.Coffee;
 import minkavlerne.cafekeabackend.cafe.entity.CustomerTicket;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -116,4 +117,12 @@ public class UserWithRoles implements UserDetails {
   public String getUsername() {
     return email;
   }
+
+  @ManyToMany
+  @JoinTable(
+          name = "customer_coffee",
+          joinColumns = @JoinColumn(name = "customer_id"),
+          inverseJoinColumns = @JoinColumn(name = "coffee_id")
+  )
+    private List<Coffee> coffees = new ArrayList<>();
 }

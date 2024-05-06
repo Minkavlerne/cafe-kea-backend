@@ -9,4 +9,5 @@ public interface
 UserWithRolesRepository extends JpaRepository<UserWithRoles,Integer> {
     Boolean existsByEmail(String email);
     Optional<UserWithRoles> findByEmail(String email);
+
 }
