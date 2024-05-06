@@ -25,7 +25,8 @@ public class CafeKeaBackendApplication {
     }
 
     @Bean
-    public CommandLineRunner importData(CoffeeRepository coffeeRepository, UserWithRolesRepository userWithRolesRepository, PasswordEncoder pwEncoder, TicketRepository ticketRepository, CustomerTicketRepository customerTicketRepository) {
+    public CommandLineRunner importData(CoffeeRepository coffeeRepository, UserWithRolesRepository userWithRolesRepository, PasswordEncoder pwEncoder) {
+
         return args -> {
             /*coffeeRepository.saveAll(List.of(
                     new Coffee("Small Filter", 15),
@@ -39,6 +40,7 @@ public class CafeKeaBackendApplication {
                     new Coffee("Small Tea", 10),
                     new Coffee("Large Tea", 15)
             ));*/
+
             /*Ticket ticket1 = new Ticket();
             ticket1.setName("10 Small Filter");
             ticket1.setPrice(150);
