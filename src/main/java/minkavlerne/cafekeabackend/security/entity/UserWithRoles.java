@@ -1,11 +1,13 @@
 package minkavlerne.cafekeabackend.security.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import minkavlerne.cafekeabackend.cafe.entity.CustomerTicket;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -63,6 +65,11 @@ public class UserWithRoles implements UserDetails {
   @ElementCollection(fetch = FetchType.EAGER)
   @CollectionTable(name = "security_role")
   List<Role> roles = new ArrayList<>();
+
+  @OneToMany(mappedBy = "customer")
+  @JsonManagedReference
+    private List<CustomerTicket> customerTickets = new ArrayList<>();
+
 
   public UserWithRoles() {}
 
