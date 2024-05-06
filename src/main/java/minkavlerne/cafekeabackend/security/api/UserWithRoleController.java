@@ -39,20 +39,29 @@ public class UserWithRoleController {
   public UserWithRolesResponse removeRole(@PathVariable int id, @PathVariable String role) {
     return userWithRolesService.removeRole(id, Role.fromString(role));
   }
+  
   @GetMapping("/{email}")
   public UserWithRolesResponse getUserWithRolesByEmail(@PathVariable String email){
     return userWithRolesService.getUserWithRolesByEmail(email);
   }
+
   @DeleteMapping("/{email}")
-    public UserWithRolesResponse deleteUserWithRolesByEmail(@PathVariable String email){
-        return userWithRolesService.deleteUserWithRolesByEmail(email);
-    }
+  public UserWithRolesResponse deleteUserWithRolesByEmail(@PathVariable String email){
+      return userWithRolesService.deleteUserWithRolesByEmail(email);
+  }
+
   @PutMapping("/{email}")
   public UserWithRolesResponse editUserWithRolesByEmail(@PathVariable String email, @RequestBody UserWithRolesPasswordRequest request){
     return userWithRolesService.editUserWithRolesByEmail(email, request);
   }
+
+  @PutMapping("/{email}/ticket")
+  public UserWithRolesResponse addTicketToUser(@PathVariable String email, @RequestBody int ticketId){
+    return userWithRolesService.addTicketToUser(email, ticketId);
+  }
+
   @PutMapping("/{email}/coffee")
-    public UserWithRolesResponse addCoffeeToUser(@PathVariable String email, @RequestBody int coffeeId){
-        return userWithRolesService.addCoffeeToUser(email, coffeeId);
-    }
+  public UserWithRolesResponse addCoffeeToUser(@PathVariable String email, @RequestBody int coffeeId){
+      return userWithRolesService.addCoffeeToUser(email, coffeeId);
+  }
 }

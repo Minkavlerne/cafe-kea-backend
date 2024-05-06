@@ -1,5 +1,9 @@
 package minkavlerne.cafekeabackend.security.service;
 
+import minkavlerne.cafekeabackend.cafe.entity.CustomerTicket;
+import minkavlerne.cafekeabackend.cafe.entity.Ticket;
+import minkavlerne.cafekeabackend.cafe.repository.CustomerTicketRepository;
+import minkavlerne.cafekeabackend.cafe.repository.TicketRepository;
 import minkavlerne.cafekeabackend.cafe.entity.Coffee;
 import minkavlerne.cafekeabackend.cafe.repository.CoffeeRepository;
 import minkavlerne.cafekeabackend.security.dto.UserWithRolesPasswordRequest;
@@ -19,11 +23,14 @@ import java.util.List;
 public class UserWithRolesService {
 
   private  final UserWithRolesRepository userWithRolesRepository;
-
+  private final TicketRepository ticketRepository;
+  private final CustomerTicketRepository customerTicketRepository;
   private  final CoffeeRepository coffeeRepository;
 
-  public UserWithRolesService(UserWithRolesRepository userWithRolesRepository, CoffeeRepository coffeeRepository) {
+  public UserWithRolesService(UserWithRolesRepository userWithRolesRepository, TicketRepository ticketRepository, CustomerTicketRepository customerTicketRepository, CoffeeRepository coffeeRepository) {
     this.userWithRolesRepository = userWithRolesRepository;
+    this.ticketRepository = ticketRepository;
+    this.customerTicketRepository = customerTicketRepository;
     this.coffeeRepository = coffeeRepository;
   }
 
@@ -80,26 +87,36 @@ public class UserWithRolesService {
     }
     return new UserWithRolesResponse(userWithRolesRepository.save(userWithRoles));
   }
-public UserWithRolesResponse deleteUserWithRolesByEmail(String email){
-    UserWithRoles user = userWithRolesRepository.findByEmail(email).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
-    userWithRolesRepository.delete(user);
-    return new UserWithRolesResponse(user);
-}
-public UserWithRolesResponse editUserWithRolesByEmail(String email, UserWithRolesPasswordRequest request){
-    UserWithRoles user = userWithRolesRepository.findByEmail(email).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
-    user.setPassword(request.getPassword());
-    return new UserWithRolesResponse(userWithRolesRepository.save(user));
-}
+  
+  public UserWithRolesResponse deleteUserWithRolesByEmail(String email){
+      UserWithRoles user = userWithRolesRepository.findByEmail(email).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
+      userWithRolesRepository.delete(user);
+      return new UserWithRolesResponse(user);
+  }
+  
+  public UserWithRolesResponse editUserWithRolesByEmail(String email, UserWithRolesPasswordRequest request){
+      UserWithRoles user = userWithRolesRepository.findByEmail(email).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
+      user.setPassword(request.getPassword());
+      return new UserWithRolesResponse(userWithRolesRepository.save(user));
+  }
 
-public UserWithRolesResponse addCoffeeToUser(String email, int coffeeId){
-    UserWithRoles user = userWithRolesRepository.findByEmail(email).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
-    Coffee coffee = coffeeRepository.findById(coffeeId).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Coffee not found"));
-    List<Coffee> coffees = new ArrayList<>();
-    coffees.add(coffee);
-    user.setCoffees(coffees);
-    return new UserWithRolesResponse(userWithRolesRepository.save(user));
-}
+  public UserWithRolesResponse addTicketToUser(String email, int ticketId) {
+      UserWithRoles user = userWithRolesRepository.findByEmail(email).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
+      Ticket newTicket = ticketRepository.findById(ticketId).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Ticket not found"));
+      CustomerTicket newCustomerTicket = new CustomerTicket(user, newTicket);
+      customerTicketRepository.save(newCustomerTicket);
+      List<CustomerTicket> oldCustomerTickets = user.getCustomerTickets();
+      oldCustomerTickets.add(newCustomerTicket);
+      user.setCustomerTickets(oldCustomerTickets);
+      return new UserWithRolesResponse(userWithRolesRepository.save(user));
+  }
 
-
-
+  public UserWithRolesResponse addCoffeeToUser(String email, int coffeeId){
+      UserWithRoles user = userWithRolesRepository.findByEmail(email).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
+      Coffee coffee = coffeeRepository.findById(coffeeId).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Coffee not found"));
+      List<Coffee> coffees = new ArrayList<>();
+      coffees.add(coffee);
+      user.setCoffees(coffees);
+      return new UserWithRolesResponse(userWithRolesRepository.save(user));
+  }
 }
