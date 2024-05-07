@@ -16,7 +16,7 @@ public class TicketController {
         this.ticketService = ticketService;
     }
     @GetMapping
-    public List<Ticket> getTickets(){
+    public List<TicketDto> getTickets(){
         return ticketService.getTickets();
     }
     @PostMapping

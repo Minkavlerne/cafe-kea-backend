@@ -14,8 +14,9 @@ public class TicketService {
     public TicketService(TicketRepository ticketRepository) {
         this.ticketRepository = ticketRepository;
     }
-    public List<Ticket> getTickets(){
-        return ticketRepository.findAll();
+    public List<TicketDto> getTickets(){
+        List<Ticket> tickets = ticketRepository.findAll();
+        return tickets.stream().map(TicketDto::new).toList();
     }
     public TicketDto addTicket(TicketDto ticket){
         Ticket newTicket = new Ticket();

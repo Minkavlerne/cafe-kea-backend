@@ -100,9 +100,10 @@ public class UserWithRolesService {
       return new UserWithRolesResponse(userWithRolesRepository.save(user));
   }
 
-  public UserWithRolesResponse addTicketToUser(String email, int ticketId) {
+  public UserWithRolesResponse addTicketToUser(String email, String ticketId) {
+      int id = Integer.parseInt(ticketId);
       UserWithRoles user = userWithRolesRepository.findByEmail(email).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
-      Ticket newTicket = ticketRepository.findById(ticketId).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Ticket not found"));
+      Ticket newTicket = ticketRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Ticket not found"));
       CustomerTicket newCustomerTicket = new CustomerTicket(user, newTicket);
       customerTicketRepository.save(newCustomerTicket);
       List<CustomerTicket> oldCustomerTickets = user.getCustomerTickets();
@@ -111,9 +112,10 @@ public class UserWithRolesService {
       return new UserWithRolesResponse(userWithRolesRepository.save(user));
   }
 
-  public UserWithRolesResponse addCoffeeToUser(String email, int coffeeId){
+  public UserWithRolesResponse addCoffeeToUser(String email, String coffeeId){
+      int id = Integer.parseInt(coffeeId);
       UserWithRoles user = userWithRolesRepository.findByEmail(email).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
-      Coffee coffee = coffeeRepository.findById(coffeeId).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Coffee not found"));
+      Coffee coffee = coffeeRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Coffee not found"));
       List<Coffee> coffees = user.getCoffees();
       coffees.add(coffee);
       user.setCoffees(coffees);

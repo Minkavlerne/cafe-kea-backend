@@ -60,13 +60,13 @@ public class UserWithRoleController {
 
   // Add ticket to user
   @PutMapping("/{email}/ticket")
-  public UserWithRolesResponse addTicketToUser(@PathVariable String email, @RequestBody int ticketId){
+  public UserWithRolesResponse addTicketToUser(@PathVariable String email, @RequestBody String ticketId){
     return userWithRolesService.addTicketToUser(email, ticketId);
   }
 
   // Add coffee to user
   @PutMapping("/{email}/coffee")
-  public UserWithRolesResponse addCoffeeToUser(@PathVariable String email, @RequestBody int coffeeId){
+  public UserWithRolesResponse addCoffeeToUser(@PathVariable String email, @RequestBody String coffeeId){
       return userWithRolesService.addCoffeeToUser(email, coffeeId);
   }
 }

@@ -24,6 +24,7 @@ public class Ticket {
     private int price;
     @NotNull
     private String name;
+
     @OneToMany(mappedBy = "ticket")
     @JsonManagedReference
     private List<CustomerTicket> customerTickets = new ArrayList<>();
