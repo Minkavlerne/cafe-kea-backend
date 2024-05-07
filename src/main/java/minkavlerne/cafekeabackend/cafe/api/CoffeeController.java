@@ -17,11 +17,13 @@ public class CoffeeController {
     public CoffeeController(CoffeeService coffeeService) {
         this.coffeeService = coffeeService;
     }
-   @GetMapping
-   public ResponseEntity<List<CoffeeDto>> getAllCoffees() {
+
+    @GetMapping
+    public ResponseEntity<List<CoffeeDto>> getAllCoffees() {
        return ResponseEntity.ok(coffeeService.getAllCoffees());
    }
-   @GetMapping("/{id}")
+
+    @GetMapping("/{id}")
     public ResponseEntity<CoffeeDto> getCoffeeById(@PathVariable int id) {
          return ResponseEntity.ok(coffeeService.getCoffeeById(id));
     }

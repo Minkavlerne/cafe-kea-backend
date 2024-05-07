@@ -45,21 +45,26 @@ public class UserWithRoleController {
     return userWithRolesService.getUserWithRolesByEmail(email);
   }
 
+  // Delete user with roles by email
+  @PreAuthorize("hasAuthority('ADMIN')")
   @DeleteMapping("/{email}")
   public UserWithRolesResponse deleteUserWithRolesByEmail(@PathVariable String email){
       return userWithRolesService.deleteUserWithRolesByEmail(email);
   }
 
+  // Change password for user
   @PutMapping("/{email}")
   public UserWithRolesResponse editUserWithRolesByEmail(@PathVariable String email, @RequestBody UserWithRolesPasswordRequest request){
     return userWithRolesService.editUserWithRolesByEmail(email, request);
   }
 
+  // Add ticket to user
   @PutMapping("/{email}/ticket")
   public UserWithRolesResponse addTicketToUser(@PathVariable String email, @RequestBody int ticketId){
     return userWithRolesService.addTicketToUser(email, ticketId);
   }
 
+  // Add coffee to user
   @PutMapping("/{email}/coffee")
   public UserWithRolesResponse addCoffeeToUser(@PathVariable String email, @RequestBody int coffeeId){
       return userWithRolesService.addCoffeeToUser(email, coffeeId);

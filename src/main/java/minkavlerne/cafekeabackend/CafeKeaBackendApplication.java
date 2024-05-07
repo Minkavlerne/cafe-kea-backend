@@ -25,7 +25,7 @@ public class CafeKeaBackendApplication {
     }
 
     @Bean
-    public CommandLineRunner importData(CoffeeRepository coffeeRepository, UserWithRolesRepository userWithRolesRepository, PasswordEncoder pwEncoder) {
+    public CommandLineRunner importData(CoffeeRepository coffeeRepository, UserWithRolesRepository userWithRolesRepository, PasswordEncoder pwEncoder, TicketRepository ticketRepository) {
 
         return args -> {
             /*coffeeRepository.saveAll(List.of(

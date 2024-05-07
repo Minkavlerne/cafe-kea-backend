@@ -114,7 +114,7 @@ public class UserWithRolesService {
   public UserWithRolesResponse addCoffeeToUser(String email, int coffeeId){
       UserWithRoles user = userWithRolesRepository.findByEmail(email).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
       Coffee coffee = coffeeRepository.findById(coffeeId).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Coffee not found"));
-      List<Coffee> coffees = new ArrayList<>();
+      List<Coffee> coffees = user.getCoffees();
       coffees.add(coffee);
       user.setCoffees(coffees);
       return new UserWithRolesResponse(userWithRolesRepository.save(user));
