@@ -29,6 +29,8 @@ public class Ticket {
     @JsonManagedReference
     private List<CustomerTicket> customerTickets = new ArrayList<>();
 
-
-
+    public Ticket(int price, String name) {
+        this.price = price;
+        this.name = name;
+    }
 }
