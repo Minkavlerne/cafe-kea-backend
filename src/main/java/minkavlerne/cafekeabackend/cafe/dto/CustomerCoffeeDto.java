@@ -11,15 +11,15 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 
-public class CustomerCoffeDto {
+public class CustomerCoffeeDto {
     private int id;
-    private int coffeeId;
+    private CoffeeDto coffeeDto;
     private int customerId;
     private LocalDateTime createdAt;
 
-    public CustomerCoffeDto(CustomerCoffee customerCoffee) {
+    public CustomerCoffeeDto(CustomerCoffee customerCoffee) {
         this.id = customerCoffee.getId();
-        this.coffeeId = customerCoffee.getCoffee().getId();
+        this.coffeeDto = new CoffeeDto(customerCoffee.getCoffee());
         this.customerId = customerCoffee.getCustomer().getId();
         this.createdAt = customerCoffee.getCreatedAt();
     }

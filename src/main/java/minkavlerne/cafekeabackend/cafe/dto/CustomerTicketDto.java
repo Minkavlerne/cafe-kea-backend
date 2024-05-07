@@ -11,14 +11,14 @@ import minkavlerne.cafekeabackend.cafe.entity.CustomerTicket;
 
 public class CustomerTicketDto {
     private int id;
-    private int ticketId;
+    private TicketDto ticketDto;
     private int customerId;
     private int quantity;
     private String createdAt;
 
     public CustomerTicketDto(CustomerTicket customerTicket) {
         this.id = customerTicket.getId();
-        this.ticketId = customerTicket.getTicket().getId();
+        this.ticketDto = new TicketDto(customerTicket.getTicket());
         this.customerId = customerTicket.getCustomer().getId();
         this.quantity = customerTicket.getQuantity();
         this.createdAt = customerTicket.getCreatedAt().toString();
