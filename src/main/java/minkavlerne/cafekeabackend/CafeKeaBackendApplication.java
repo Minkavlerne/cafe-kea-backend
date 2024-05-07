@@ -41,10 +41,11 @@ public class CafeKeaBackendApplication {
                     new Coffee("Large Tea", 15)
             ));*/
 
-            /*Ticket ticket1 = new Ticket();
-            ticket1.setName("10 Small Filter");
-            ticket1.setPrice(150);
-            ticketRepository.save(ticket1);*/
+            /*Ticket ticket1 = new Ticket(100, "10 small basics");
+            Ticket ticket2 = new Ticket(150, "10 large basics");
+            Ticket ticket3 = new Ticket(200, "10 small specials");
+            Ticket ticket4 = new Ticket(250, "10 large specials");
+            ticketRepository.saveAll(List.of(ticket1, ticket2, ticket3, ticket4));*/
 
             /*CustomerTicket customerTicket1 = new CustomerTicket();
             customerTicket1.setTicket(ticketRepository.findById(1).get());
