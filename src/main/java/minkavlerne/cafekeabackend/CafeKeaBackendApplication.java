@@ -39,9 +39,9 @@ public class CafeKeaBackendApplication {
                     new Coffee("Americano", 20),
                     new Coffee("Small Tea", 10),
                     new Coffee("Large Tea", 15)
-            ));*/
+            ));
 
-            /*Ticket ticket1 = new Ticket(100, "10 small basics");
+            Ticket ticket1 = new Ticket(100, "10 small basics");
             Ticket ticket2 = new Ticket(150, "10 large basics");
             Ticket ticket3 = new Ticket(200, "10 small specials");
             Ticket ticket4 = new Ticket(250, "10 large specials");

@@ -1,7 +1,9 @@
 package minkavlerne.cafekeabackend.security.service;
 
+import minkavlerne.cafekeabackend.cafe.entity.CustomerCoffee;
 import minkavlerne.cafekeabackend.cafe.entity.CustomerTicket;
 import minkavlerne.cafekeabackend.cafe.entity.Ticket;
+import minkavlerne.cafekeabackend.cafe.repository.CustomerCoffeeRepository;
 import minkavlerne.cafekeabackend.cafe.repository.CustomerTicketRepository;
 import minkavlerne.cafekeabackend.cafe.repository.TicketRepository;
 import minkavlerne.cafekeabackend.cafe.entity.Coffee;
@@ -25,13 +27,15 @@ public class UserWithRolesService {
   private  final UserWithRolesRepository userWithRolesRepository;
   private final TicketRepository ticketRepository;
   private final CustomerTicketRepository customerTicketRepository;
+  private final CustomerCoffeeRepository customerCoffeReporsitory;
   private  final CoffeeRepository coffeeRepository;
 
-  public UserWithRolesService(UserWithRolesRepository userWithRolesRepository, TicketRepository ticketRepository, CustomerTicketRepository customerTicketRepository, CoffeeRepository coffeeRepository) {
+  public UserWithRolesService(UserWithRolesRepository userWithRolesRepository, TicketRepository ticketRepository, CustomerTicketRepository customerTicketRepository, CoffeeRepository coffeeRepository, CustomerCoffeeRepository customerCoffeReporsitory) {
     this.userWithRolesRepository = userWithRolesRepository;
     this.ticketRepository = ticketRepository;
     this.customerTicketRepository = customerTicketRepository;
     this.coffeeRepository = coffeeRepository;
+    this.customerCoffeReporsitory = customerCoffeReporsitory;
   }
 
   public UserWithRolesResponse getUserWithRoles(int id){
@@ -116,9 +120,11 @@ public class UserWithRolesService {
       int id = Integer.parseInt(coffeeId);
       UserWithRoles user = userWithRolesRepository.findByEmail(email).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
       Coffee coffee = coffeeRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Coffee not found"));
-      List<Coffee> coffees = user.getCoffees();
-      coffees.add(coffee);
-      user.setCoffees(coffees);
+      CustomerCoffee newCustomerCoffee = new CustomerCoffee(user, coffee);
+      customerCoffeReporsitory.save(newCustomerCoffee);
+      List<CustomerCoffee> oldCustomerCoffees = user.getCustomerCoffees();
+      oldCustomerCoffees.add(newCustomerCoffee);
+      user.setCustomerCoffees(oldCustomerCoffees);
       return new UserWithRolesResponse(userWithRolesRepository.save(user));
   }
 }
