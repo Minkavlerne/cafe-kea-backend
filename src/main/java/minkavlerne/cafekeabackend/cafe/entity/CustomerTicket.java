@@ -7,6 +7,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import minkavlerne.cafekeabackend.security.entity.UserWithRoles;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -28,6 +32,9 @@ public class CustomerTicket {
     @ManyToOne
     @JsonBackReference
     private Ticket ticket;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
     public CustomerTicket(UserWithRoles customer, Ticket ticket) {
         this.customer = customer;
