@@ -71,14 +71,14 @@ public class UserWithRoleController {
   }
 
   // subtract quantity of ticket from user
-  @PutMapping("/{email}/ticket/{ticketId}")
-  public UserWithRolesResponse subtractTicketFromUser(@PathVariable String email, @PathVariable String ticketId){
-    return userWithRolesService.subtractTicketFromUser(email, ticketId);
+  @PutMapping("/{email}/ticket/{customerTicketId}")
+  public UserWithRolesResponse subtractTicketFromUser(@PathVariable String email, @PathVariable String customerTicketId){
+    return userWithRolesService.subtractTicketFromUser(email, customerTicketId);
   }
 
   // Update current CustomerCoffee to be used
-  @PutMapping("/{email}/coffee/{coffeeId}")
-  public UserWithRolesResponse updateCustomerCoffeeToUsed(@PathVariable String email, @PathVariable String coffeeId){
-    return userWithRolesService.updateCustomerCoffeeToUsed(email, coffeeId);
+  @PutMapping("/{email}/coffee/{customerCoffeeId}")
+  public UserWithRolesResponse updateCustomerCoffeeToUsed(@PathVariable String email, @PathVariable String customerCoffeeId){
+    return userWithRolesService.updateCustomerCoffeeToUsed(email, customerCoffeeId);
   }
 }

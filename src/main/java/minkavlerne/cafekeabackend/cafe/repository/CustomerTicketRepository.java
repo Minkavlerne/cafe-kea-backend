@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface CustomerTicketRepository extends JpaRepository<CustomerTicket, Integer>{
 
 
-    Optional<CustomerTicket> findByCustomerIdAndTicketId(int customerId, int ticketId);
+    Optional<CustomerTicket> findByCustomerIdAndId(int customerId, int id);
 
 
 }

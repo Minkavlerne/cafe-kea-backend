@@ -129,10 +129,10 @@ public class UserWithRolesService {
       return new UserWithRolesResponse(userWithRolesRepository.save(user));
   }
 
-    public UserWithRolesResponse subtractTicketFromUser(String email, String ticketId) {
-        int id = Integer.parseInt(ticketId);
+    public UserWithRolesResponse subtractTicketFromUser(String email, String customerTicketId) {
+        int id = Integer.parseInt(customerTicketId);
         UserWithRoles user = userWithRolesRepository.findByEmail(email).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
-        CustomerTicket customerTicket = customerTicketRepository.findByCustomerIdAndTicketId(user.getId(), id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "CustomerTicket not found"));
+        CustomerTicket customerTicket = customerTicketRepository.findByCustomerIdAndId(user.getId(), id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "CustomerTicket not found"));
         int currentQuantity = customerTicket.getQuantity();
         customerTicket.setUsed(currentQuantity == 1);
         customerTicket.setQuantity(currentQuantity - 1);
@@ -140,10 +140,10 @@ public class UserWithRolesService {
         return new UserWithRolesResponse(user);
     }
 
-    public UserWithRolesResponse updateCustomerCoffeeToUsed(String email, String coffeeId) {
-        int id = Integer.parseInt(coffeeId);
+    public UserWithRolesResponse updateCustomerCoffeeToUsed(String email, String customerCoffeeId) {
+        int id = Integer.parseInt(customerCoffeeId);
         UserWithRoles user = userWithRolesRepository.findByEmail(email).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
-        CustomerCoffee customerCoffee = customerCoffeReporsitory.findByCustomerIdAndCoffeeId(user.getId(), id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "CustomerCoffee not found"));
+        CustomerCoffee customerCoffee = customerCoffeReporsitory.findByCustomerIdAndId(user.getId(), id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "CustomerCoffee not found"));
         customerCoffee.setUsed(true);
         customerCoffeReporsitory.save(customerCoffee);
         return new UserWithRolesResponse(user);
