@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import minkavlerne.cafekeabackend.cafe.entity.Coffee;
+import minkavlerne.cafekeabackend.cafe.entity.CustomerCoffee;
 import minkavlerne.cafekeabackend.cafe.entity.CustomerTicket;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -71,6 +72,9 @@ public class UserWithRoles implements UserDetails {
   @JsonManagedReference
     private List<CustomerTicket> customerTickets = new ArrayList<>();
 
+  @OneToMany(mappedBy = "customer")
+  @JsonManagedReference
+    private List<CustomerCoffee> customerCoffees = new ArrayList<>();
 
   public UserWithRoles() {}
 
@@ -118,11 +122,4 @@ public class UserWithRoles implements UserDetails {
     return email;
   }
 
-  @ManyToMany
-  @JoinTable(
-          name = "customer_coffee",
-          joinColumns = @JoinColumn(name = "customer_id"),
-          inverseJoinColumns = @JoinColumn(name = "coffee_id")
-  )
-    private List<Coffee> coffees = new ArrayList<>();
 }

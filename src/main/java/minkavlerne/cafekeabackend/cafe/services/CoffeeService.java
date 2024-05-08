@@ -37,10 +37,4 @@ public class CoffeeService {
         coffeeRepository.save(coffee);
         return new CoffeeDto(coffee);
     }
-    public UserWithRoles addCoffeeToUser(int userId, int coffeeId) {
-        UserWithRoles user = userWithRolesRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        Coffee coffee = coffeeRepository.findById(coffeeId).orElseThrow(() -> new RuntimeException("Coffee not found"));
-        user.getCoffees().add(coffee);
-        return userWithRolesRepository.save(user);
-    }
 }

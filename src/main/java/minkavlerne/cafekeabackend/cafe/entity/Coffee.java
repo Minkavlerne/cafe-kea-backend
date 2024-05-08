@@ -1,5 +1,6 @@
 package minkavlerne.cafekeabackend.cafe.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,6 +30,10 @@ public class Coffee {
     private LocalDateTime createdAt;
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "coffee")
+    @JsonManagedReference
+    private List<CustomerCoffee> customerCoffees = new ArrayList<>();
 
     public Coffee(String name, int price) {
         this.name = name;
