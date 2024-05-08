@@ -133,8 +133,19 @@ public class UserWithRolesService {
         int id = Integer.parseInt(ticketId);
         UserWithRoles user = userWithRolesRepository.findByEmail(email).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
         CustomerTicket customerTicket = customerTicketRepository.findByCustomerIdAndTicketId(user.getId(), id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "CustomerTicket not found"));
-        customerTicket.setQuantity(customerTicket.getQuantity() - 1);
+        int currentQuantity = customerTicket.getQuantity();
+        customerTicket.setUsed(currentQuantity == 1);
+        customerTicket.setQuantity(currentQuantity - 1);
         customerTicketRepository.save(customerTicket);
+        return new UserWithRolesResponse(user);
+    }
+
+    public UserWithRolesResponse updateCustomerCoffeeToUsed(String email, String coffeeId) {
+        int id = Integer.parseInt(coffeeId);
+        UserWithRoles user = userWithRolesRepository.findByEmail(email).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
+        CustomerCoffee customerCoffee = customerCoffeReporsitory.findByCustomerIdAndCoffeeId(user.getId(), id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "CustomerCoffee not found"));
+        customerCoffee.setUsed(true);
+        customerCoffeReporsitory.save(customerCoffee);
         return new UserWithRolesResponse(user);
     }
 }

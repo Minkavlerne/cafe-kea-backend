@@ -11,6 +11,7 @@ import minkavlerne.cafekeabackend.cafe.entity.CustomerTicket;
 
 public class CustomerTicketDto {
     private int id;
+    private boolean isUsed;
     private TicketDto ticketDto;
     private int customerId;
     private int quantity;
@@ -18,6 +19,7 @@ public class CustomerTicketDto {
 
     public CustomerTicketDto(CustomerTicket customerTicket) {
         this.id = customerTicket.getId();
+        this.isUsed = customerTicket.isUsed();
         this.ticketDto = new TicketDto(customerTicket.getTicket());
         this.customerId = customerTicket.getCustomer().getId();
         this.quantity = customerTicket.getQuantity();

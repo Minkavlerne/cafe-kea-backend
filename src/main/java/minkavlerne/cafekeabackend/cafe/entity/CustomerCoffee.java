@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import minkavlerne.cafekeabackend.security.entity.UserWithRoles;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.time.LocalDateTime;
 
@@ -20,6 +21,12 @@ public class CustomerCoffee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(nullable = false)
+    private boolean isUsed = false;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
     @ManyToOne
     @JsonBackReference
     private UserWithRoles customer;
@@ -28,8 +35,6 @@ public class CustomerCoffee {
     @JsonBackReference
     private Coffee coffee;
 
-    @CreationTimestamp
-    private LocalDateTime createdAt;
 
     public CustomerCoffee(UserWithRoles customer, Coffee coffee) {
         this.customer = customer;

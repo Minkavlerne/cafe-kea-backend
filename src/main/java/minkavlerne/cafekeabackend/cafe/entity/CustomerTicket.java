@@ -25,6 +25,9 @@ public class CustomerTicket {
     @NotNull
     private int quantity = 10;
 
+    @NotNull
+    private boolean isUsed = false;
+
     @ManyToOne
     @JsonBackReference
     private UserWithRoles customer;

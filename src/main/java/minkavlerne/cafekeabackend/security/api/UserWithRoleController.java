@@ -75,4 +75,10 @@ public class UserWithRoleController {
   public UserWithRolesResponse subtractTicketFromUser(@PathVariable String email, @PathVariable String ticketId){
     return userWithRolesService.subtractTicketFromUser(email, ticketId);
   }
+
+  // Update current CustomerCoffee to be used
+  @PutMapping("/{email}/coffee/{coffeeId}")
+  public UserWithRolesResponse updateCustomerCoffeeToUsed(@PathVariable String email, @PathVariable String coffeeId){
+    return userWithRolesService.updateCustomerCoffeeToUsed(email, coffeeId);
+  }
 }
