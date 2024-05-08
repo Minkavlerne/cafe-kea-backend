@@ -69,4 +69,10 @@ public class UserWithRoleController {
   public UserWithRolesResponse addCoffeeToUser(@PathVariable String email, @RequestBody String coffeeId){
       return userWithRolesService.addCoffeeToUser(email, coffeeId);
   }
+
+  // subtract quantity of ticket from user
+  @PutMapping("/{email}/ticket/{ticketId}")
+  public UserWithRolesResponse subtractTicketFromUser(@PathVariable String email, @PathVariable String ticketId){
+    return userWithRolesService.subtractTicketFromUser(email, ticketId);
+  }
 }

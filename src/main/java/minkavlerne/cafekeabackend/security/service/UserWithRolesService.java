@@ -18,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserWithRolesService {
@@ -121,4 +122,13 @@ public class UserWithRolesService {
       user.setCoffees(coffees);
       return new UserWithRolesResponse(userWithRolesRepository.save(user));
   }
+
+    public UserWithRolesResponse subtractTicketFromUser(String email, String ticketId) {
+        int id = Integer.parseInt(ticketId);
+        UserWithRoles user = userWithRolesRepository.findByEmail(email).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
+        CustomerTicket customerTicket = customerTicketRepository.findByCustomerIdAndTicketId(user.getId(), id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "CustomerTicket not found"));
+        customerTicket.setQuantity(customerTicket.getQuantity() - 1);
+        customerTicketRepository.save(customerTicket);
+        return new UserWithRolesResponse(user);
+    }
 }
