@@ -46,7 +46,7 @@ public class UserWithRoleController {
   }
 
   // Delete user with roles by email
-  @PreAuthorize("hasAuthority('ADMIN')")
+  //@PreAuthorize("hasAuthority('ADMIN')")
   @DeleteMapping("/{email}")
   public UserWithRolesResponse deleteUserWithRolesByEmail(@PathVariable String email){
       return userWithRolesService.deleteUserWithRolesByEmail(email);

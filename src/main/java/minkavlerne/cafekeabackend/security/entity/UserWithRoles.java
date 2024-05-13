@@ -68,11 +68,11 @@ public class UserWithRoles implements UserDetails {
   @CollectionTable(name = "security_role")
   List<Role> roles = new ArrayList<>();
 
-  @OneToMany(mappedBy = "customer")
+  @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
   @JsonManagedReference
     private List<CustomerTicket> customerTickets = new ArrayList<>();
 
-  @OneToMany(mappedBy = "customer")
+  @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
   @JsonManagedReference
     private List<CustomerCoffee> customerCoffees = new ArrayList<>();
 
